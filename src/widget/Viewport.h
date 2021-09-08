@@ -234,7 +234,7 @@ class Viewport : public QGLWidget {
 
   // shaders, etc.
   uint32_t maxScans_{50};
-  uint32_t maxPointsPerScan_{150000};
+  uint32_t maxPointsPerScan_{50000};
   std::vector<Eigen::Matrix4f> bufPoses_;
 
   // todo: rename to TilePoints, TileRemissions, TileLabels, TileVisible, TileScanIndexes.
