@@ -96,6 +96,6 @@ install_manifest.txt
 *~
 
 .settings
-
+.idea
 build
 bin
