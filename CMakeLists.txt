@@ -10,11 +10,13 @@ find_package(Qt5Xml REQUIRED)
 find_package(Qt5Gui REQUIRED) 
 find_package(Qt5OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(rostest REQUIRED)
+find_package(GTest REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
 
 find_package(catkin COMPONENTS 
      glow)
-
+include_directories(${GTEST_INCLUDE_DIRS})
 if(catkin_FOUND)
   message("Found catkin")
   catkin_package(
@@ -124,10 +126,12 @@ if(NOT GTEST_FOUND)
 endif()
 
 
-if(GTEST_FOUND)
-  enable_testing()
-  add_subdirectory(src/test)
-endif()
+# if(GTEST_FOUND)
+#   enable_testing()
+#   add_subdirectory(src/test)
+#   find_package(GTest REQUIRED) # Find the google testing framework on your system
+#   include_directories(${GTEST_INCLUDE_DIRS})
+# endif()
 
 target_link_libraries(labeler ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} pthread Qt5::Xml Qt5::OpenGL Qt5::Widgets)
 

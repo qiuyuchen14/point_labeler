@@ -1,0 +1,8 @@
+0 void 0 0 0
+1 free 0 255 0
+2 low-cost 255 255 0
+3 med-cost 255 170 0
+4 lethal 255 0 0
+5 lethal_ground 0 120 255
+6 no_ground_plane 255 255 255
+7 dynamic_obj 0 255 255

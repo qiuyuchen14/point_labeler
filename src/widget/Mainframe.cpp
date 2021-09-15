@@ -392,11 +392,11 @@ Mainframe::Mainframe() : mChangesSinceLastSave(false) {
       std::cout << numSelectedInstances_ << " instances selected." << std::endl;
     }
 
+    connect(ui.chkAddCarPoints, &QCheckBox::toggled,
+            [this](bool value) { ui.mViewportXYZ->setDrawingOption("add car points", value); });
+
     ui.mViewportXYZ->setInstanceSelectionMode(checked);
   });
-
-  connect(ui.chkAddCarPoints, &QCheckBox::toggled,
-          [this](bool value) { ui.mViewportXYZ->setDrawingOption("add car points", value); });
 
   connect(ui.chkShowInstanceBoxes, &QCheckBox::toggled,
           [this](bool value) { ui.mViewportXYZ->setDrawingOption("draw instance boxes", value); });
@@ -529,7 +529,7 @@ void Mainframe::open() {
   if (!retValue.isNull()) {
     QDir base_dir(retValue);
 
-    if (!base_dir.exists("velodyne") || !base_dir.exists("poses.txt")) {
+    if (!base_dir.exists("os1_cloud_node_kitti_bin") || !base_dir.exists("poses.txt")) {
       std::cout << "[ERROR] velodyne or poses.txt missing." << std::endl;
       return;
     }
@@ -972,7 +972,6 @@ void Mainframe::readConfig() {
       ui.mViewportXYZ->setFlipMouseButtons((value == 0) ? false : true);
       std::cout << "-- Setting 'flip mouse buttons' to " << ((value == 0) ? "false" : "true") << std::endl;
     }
-
     if (tokens[0] == "camera") {
       std::string value = trim(tokens[1]);
       auto cameras = ui.mViewportXYZ->getCameraNames();
@@ -985,13 +984,6 @@ void Mainframe::readConfig() {
       } else {
         std::cout << "-- [ERROR] Could not set 'camera' to " << value << ". Undefined camera. Using default."
                   << std::endl;
-      }
-    }
-
-    if (tokens[0] == "add car points") {
-      std::string value = trim(tokens[1]);
-      if (value == "true" || value == "True" || value == "1") {
-        ui.chkAddCarPoints->setChecked(true);
       }
     }
   }
